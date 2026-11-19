@@ -6,6 +6,7 @@
 - Agentes de atención al cliente por WhatsApp y web (respuesta 24/7, preguntas frecuentes)
 - Agentes de citas y reservas conectados al calendario, con confirmaciones y recordatorios automáticos
 - Captación, cualificación y seguimiento de leads
+- ARM (gestión de clientes con agentes): un agente conectado al CRM registra conversaciones, califica contactos y hace seguimientos de forma autónoma bajo supervisión humana
 - Automatización de procesos con n8n e integración con CRM, ERP, correo y calendario
 - Asistentes de voz que atienden llamadas (como parte de un proyecto)
 - Aplicaciones y soluciones a medida para empresas
