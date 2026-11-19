@@ -135,8 +135,9 @@ p{margin:0 0 1rem}
 .chat{background:var(--tinta);border:1px solid var(--linea);border-radius:22px;display:flex;flex-direction:column;height:min(600px,78svh);overflow:hidden;position:relative}
 .chat-cabecera{display:flex;align-items:center;gap:.8rem;padding:1rem 1.25rem;border-bottom:1px solid var(--linea)}
 .chat-avatar{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--cian),var(--violeta) 75%);flex:none}
-.chat-nombre{color:var(--blanco);font-weight:600;line-height:1.2}
-.chat-estado{font-size:.85rem;color:#8d92b0}
+.chat-nombre{color:var(--blanco);font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-estado{font-size:.85rem;color:#8d92b0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-cabecera>div:not(.chat-avatar){flex:1;min-width:0}
 .chat-mensajes{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;scroll-behavior:smooth}
 .msg{max-width:85%;padding:.7rem 1rem;border-radius:18px;line-height:1.5;font-size:.98rem;white-space:pre-wrap;overflow-wrap:anywhere}
 .msg-bot{background:rgba(201,205,224,.08);color:var(--blanco);border-bottom-left-radius:6px;align-self:flex-start}
@@ -219,7 +220,7 @@ main,.pie{position:relative;z-index:1}
 .panel-chat .chat{height:min(620px,calc(100svh - 7rem));box-shadow:0 24px 70px rgba(0,0,0,.55),0 0 0 1px rgba(0,224,204,.25),0 0 80px rgba(180,78,248,.18)}
 #chat-hueco:empty{min-height:200px;border:1px dashed var(--linea);border-radius:22px;display:flex;align-items:center;justify-content:center;padding:2rem;text-align:center;color:#8d92b0}
 #chat-hueco:empty::before{content:"El chat está abierto abajo a la derecha."}
-.chat-modo{font:inherit;font-size:.85rem;background:var(--noche);color:var(--blanco);border:1px solid var(--linea);border-radius:999px;padding:.35rem .6rem;margin-left:auto;max-width:48%}
+.chat-modo{font:inherit;font-size:.85rem;background:var(--noche);color:var(--blanco);border:1px solid var(--linea);border-radius:999px;padding:.35rem .6rem;margin-left:auto;max-width:42%;flex:none}
 .chat-cerrar{display:none;background:none;border:1px solid var(--linea);color:var(--blanco);width:34px;height:34px;border-radius:50%;font-size:1.2rem;line-height:1;cursor:pointer;flex:none}
 .panel-chat .chat-cerrar{display:block}
 @media (max-width:600px){
