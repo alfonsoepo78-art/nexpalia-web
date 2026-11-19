@@ -13,9 +13,7 @@
 <meta property="og:locale" content="es_ES">
 <meta name="theme-color" content="#0a0e27">
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://nexpalia.net/#negocio","name":"NexPal IA","url":"https://nexpalia.net/","email":"info@nexpalia.net","telephone":"+34695737362","description":"Agentes de IA y aplicaciones a medida para pymes y empresas: atención al cliente por WhatsApp y web, gestión de citas, seguimiento de clientes y automatización de procesos con n8n.","founder":{"@type":"Person","name":"Alfonso Palomera Arnaldos","jobTitle":"Consultor de automatización con IA","image":"https://nexpalia.net/alfonso-palomera.webp"},"areaServed":[{"@type":"AdministrativeArea","name":"Provincia de Alicante"},{"@type":"AdministrativeArea","name":"Región de Murcia"},{"@type":"Country","name":"España"}],"knowsLanguage":["es","en","it"],"knowsAbout":["agentes de inteligencia artificial","automatización de procesos","WhatsApp Business API","n8n","aplicaciones a medida"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Servicios de NexPal IA","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Agentes de IA para pymes","description":"Atención por WhatsApp y web a cualquier hora, citas en el calendario con recordatorio y seguimiento de contactos y presupuestos."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Aplicaciones y agentes a medida para empresas","description":"Herramientas internas propias, agentes conectados a CRM, ERP, correo y calendario y automatización de procesos entre departamentos."}}]}}
@@ -31,6 +29,7 @@
 </script>
 
 <style>
+@font-face{font-family:"Bricolage Grotesque";src:url(fonts/bricolage.woff2) format("woff2-variations"),url(fonts/bricolage.woff2) format("woff2");font-weight:200 800;font-stretch:75% 100%;font-style:normal;font-display:swap}
 :root{
   --noche:#0a0e27;
   --tinta:#11163a;
@@ -155,7 +154,10 @@ p{margin:0 0 1rem}
 .chat-form input::placeholder{color:#7d82a0}
 .chat-form input:focus{outline:none;border-color:var(--cian)}
 .chat-form button{flex:none}
-@media (max-width:900px){.demo-rejilla{grid-template-columns:1fr}}
+.demo-rejilla>*{min-width:0}
+.selector{min-width:0}
+@media (max-width:900px){.demo-rejilla{grid-template-columns:minmax(0,1fr)}}
+html,body{overflow-x:clip}
 
 /* quién soy */
 .yo{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,6vw,5rem);align-items:center}
@@ -193,7 +195,38 @@ p{margin:0 0 1rem}
 .contacto-datos a,.contacto-datos span{display:block;color:var(--blanco);font-size:1.1rem;text-decoration:none;margin-top:.2rem}
 .contacto-datos a:hover{color:var(--cian)}
 
+/* formulario */
+.contacto-rejilla{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(2rem,6vw,5rem);align-items:start}
+.formulario{background:var(--tinta);border:1px solid var(--linea);border-radius:22px;padding:clamp(1.25rem,3vw,2rem);display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.campo{display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.campo-ancho{grid-column:1/-1}
+.campo label{color:var(--blanco);font-size:.95rem;font-weight:600}
+.campo input,.campo textarea{font:inherit;font-size:1rem;color:var(--blanco);background:var(--noche);border:1px solid var(--linea);border-radius:12px;padding:.75rem .9rem;width:100%}
+.campo textarea{min-height:130px;resize:vertical}
+.campo input:focus,.campo textarea:focus{outline:none;border-color:var(--cian)}
+.trampa{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.acepto{grid-column:1/-1;display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.acepto input{margin-top:.3rem;width:18px;height:18px;accent-color:var(--cian);flex:none}
+.acepto a,.capa-info a,.demo-aviso a,.chat-legal a{color:var(--cian)}
+.formulario .boton{grid-column:1/-1;justify-self:start}
+.estado-form{grid-column:1/-1;margin:0;font-size:.97rem;min-height:1.5em}
+.estado-form.ok{color:#3dff9a}.estado-form.error{color:#ff9db5}
+.capa-info{grid-column:1/-1;font-size:.8rem;line-height:1.5;color:#8d92b0;margin:0;border-top:1px solid var(--linea);padding-top:.9rem}
+.copiar{font:inherit;font-size:.85rem;background:none;border:1px solid var(--linea);color:var(--texto);border-radius:999px;padding:.25rem .7rem;margin-left:.5rem;cursor:pointer;vertical-align:middle}
+.chat-legal{font-size:.75rem;color:#7d82a0;padding:0 1rem .7rem;margin:0}
+@media (max-width:900px){.contacto-rejilla{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.formulario{grid-template-columns:1fr}}
+
+/* aviso de cookies */
+.aviso-cookies{position:fixed;left:1.25rem;bottom:1.25rem;z-index:80;max-width:420px;background:var(--tinta);border:1px solid var(--linea);border-radius:18px;padding:1rem 1.2rem;box-shadow:0 18px 50px rgba(0,0,0,.5);font-size:.92rem;line-height:1.5}
+.aviso-cookies p{margin:0 0 .8rem}
+.aviso-cookies a{color:var(--cian)}
+.aviso-cookies .boton{padding:.55rem 1.1rem;font-size:.92rem}
+@media (max-width:600px){.aviso-cookies{left:.75rem;right:.75rem;bottom:5.5rem;max-width:none}}
+
 .pie{padding:2rem 0 3rem;border-top:1px solid var(--linea);font-size:.92rem;color:#7d82a0}
+.pie nav{display:flex;flex-wrap:wrap;gap:1.2rem}
+.pie a{color:#a9aecb;text-decoration:none}.pie a:hover{color:var(--blanco)}
 .pie .envoltorio{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between}
 
 /* fondo con conexiones */
@@ -323,7 +356,7 @@ main,.pie{position:relative;z-index:1}
             <label class="opcion"><input type="radio" name="modo" value="otros"><span>Otros: dime tu negocio</span></label>
           </div>
         </fieldset>
-        <p class="demo-aviso">Los negocios de la demo son inventados. No escribas datos personales reales.</p>
+        <p class="demo-aviso">Los negocios de la demo son inventados. No escribas datos personales reales. Los mensajes los procesa un proveedor de IA: más información en la <a href="privacidad.html">política de privacidad</a>.</p>
       </div>
 
       <div id="chat-hueco"><div class="chat" id="chat" role="region" aria-label="Chat de demostración">
@@ -356,6 +389,7 @@ main,.pie{position:relative;z-index:1}
           <input id="chat-entrada" type="text" autocomplete="off" maxlength="500" placeholder="Escribe aquí tu mensaje">
           <button class="boton boton-principal" type="submit">Enviar</button>
         </form>
+        <p class="chat-legal">Demo con IA. No escribas datos personales. <a href="privacidad.html">Privacidad</a></p>
       </div></div>
     </div>
   </section>
@@ -403,18 +437,32 @@ main,.pie{position:relative;z-index:1}
   </section>
 
   <section class="seccion contacto" id="contacto" aria-labelledby="t-contacto">
-    <div class="envoltorio">
-      <h2 id="t-contacto">Cuéntame qué te quita más tiempo.</h2>
-      <p class="contacto-texto">Reserva una sesión de diagnóstico gratis por WhatsApp o por correo. Te respondo yo, normalmente en el mismo día laborable.</p>
-      <div class="portada-botones">
-        <a class="boton boton-principal" href="https://wa.me/34695737362" target="_blank" rel="noopener">Escribirme por WhatsApp</a>
-        <a class="boton boton-secundario" href="mailto:info@nexpalia.net?subject=Diagn%C3%B3stico%20gratis">Enviar un correo</a>
+    <div class="envoltorio contacto-rejilla">
+      <div>
+        <h2 id="t-contacto">Cuéntame qué te quita más tiempo.</h2>
+        <p class="contacto-texto">Reserva una sesión de diagnóstico gratis. Escríbeme por WhatsApp o déjame un mensaje en el formulario y te respondo yo, normalmente en el mismo día laborable.</p>
+        <div class="portada-botones">
+          <a class="boton boton-principal" href="https://wa.me/34695737362" target="_blank" rel="noopener">Escribirme por WhatsApp</a>
+        </div>
+        <div class="contacto-datos">
+          <div>Correo<span>info@nexpalia.net <button class="copiar" type="button" data-copiar="info@nexpalia.net">Copiar</button></span></div>
+          <div>Teléfono y WhatsApp<a href="tel:+34695737362">+34 695 737 362</a></div>
+          <div>Dónde<span>Alicante y Murcia, y en remoto</span></div>
+        </div>
       </div>
-      <div class="contacto-datos">
-        <div>Correo<a href="mailto:info@nexpalia.net">info@nexpalia.net</a></div>
-        <div>Teléfono y WhatsApp<a href="tel:+34695737362">+34 695 737 362</a></div>
-        <div>Dónde<span>Alicante y Murcia, y en remoto</span></div>
-      </div>
+
+      <form class="formulario" id="formulario" novalidate>
+        <div class="campo"><label for="f-nombre">Nombre *</label><input id="f-nombre" name="nombre" autocomplete="name" required maxlength="100"></div>
+        <div class="campo"><label for="f-email">Correo electrónico *</label><input id="f-email" name="email" type="email" autocomplete="email" required maxlength="150"></div>
+        <div class="campo"><label for="f-empresa">Empresa</label><input id="f-empresa" name="empresa" autocomplete="organization" maxlength="120"></div>
+        <div class="campo"><label for="f-telefono">Teléfono</label><input id="f-telefono" name="telefono" type="tel" autocomplete="tel" maxlength="30"></div>
+        <div class="campo campo-ancho"><label for="f-mensaje">¿Qué te gustaría automatizar? *</label><textarea id="f-mensaje" name="mensaje" required maxlength="3000"></textarea></div>
+        <div class="trampa" aria-hidden="true"><label for="f-web">No rellenes este campo</label><input id="f-web" name="web" tabindex="-1" autocomplete="off"></div>
+        <label class="acepto"><input type="checkbox" id="f-privacidad" required><span>He leído y acepto la <a href="privacidad.html" target="_blank">política de privacidad</a>. *</span></label>
+        <button class="boton boton-principal" type="submit" id="f-enviar">Enviar mensaje</button>
+        <p class="estado-form" id="f-estado" role="status" aria-live="polite"></p>
+        <p class="capa-info"><strong>Protección de datos.</strong> Responsable: Alfonso Palomera Arnaldos (NexPal IA). Finalidad: responder a tu consulta y, si lo pides, preparar una propuesta. Legitimación: tu consentimiento. Destinatarios: no se ceden a terceros salvo obligación legal; los tratan los proveedores de correo y alojamiento de la web. Derechos: acceso, rectificación, supresión y los demás que explica la <a href="privacidad.html" target="_blank">política de privacidad</a>, escribiendo a info@nexpalia.net.</p>
+      </form>
     </div>
   </section>
 </main>
@@ -422,10 +470,14 @@ main,.pie{position:relative;z-index:1}
 <footer class="pie">
   <div class="envoltorio">
     <span>© 2026 NexPal IA. Alfonso Palomera Arnaldos.</span>
-    <span>nexpalia.net</span>
+    <nav aria-label="Información legal"><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Política de privacidad</a><a href="cookies.html">Política de cookies</a></nav>
   </div>
 </footer>
 
+<div class="aviso-cookies" id="aviso-cookies" role="region" aria-label="Aviso de cookies" hidden>
+  <p>Esta web no usa cookies de análisis ni de publicidad. Solo guarda en tu navegador lo imprescindible para funcionar, como que ya has cerrado este aviso. <a href="cookies.html">Política de cookies</a></p>
+  <button class="boton boton-principal" type="button" id="cookies-ok">Entendido</button>
+</div>
 <div class="cursor-luz" id="cursor-luz" aria-hidden="true"></div>
 <div class="cursor-anillo" id="cursor-anillo" aria-hidden="true"></div>
 <div class="panel-chat" id="panel-chat" hidden></div>
@@ -542,6 +594,42 @@ let avisoVisto = false; try { avisoVisto = sessionStorage.getItem("np-aviso") ==
 if (!avisoVisto) setTimeout(() => { if (panel.hidden) burbuja.hidden = false; }, 4000);
 $("#burbuja-cerrar").addEventListener("click", () => { burbuja.hidden = true; try { sessionStorage.setItem("np-aviso","1"); } catch(e) {} });
 
+/* ===== Formulario de contacto ===== */
+const FORM_ENDPOINT = "https://nexpalia-ia78-n8n.oilsta.easypanel.host/webhook/nexpal-contacto";
+const form = $("#formulario"), estadoF = $("#f-estado"), botonF = $("#f-enviar");
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  estadoF.className = "estado-form"; estadoF.textContent = "";
+  const d = {nombre:$("#f-nombre").value.trim(), email:$("#f-email").value.trim(), empresa:$("#f-empresa").value.trim(), telefono:$("#f-telefono").value.trim(), mensaje:$("#f-mensaje").value.trim(), web:$("#f-web").value, privacidad:$("#f-privacidad").checked};
+  if (d.nombre.length < 2){ estadoF.className = "estado-form error"; estadoF.textContent = "Escribe tu nombre."; $("#f-nombre").focus(); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)){ estadoF.className = "estado-form error"; estadoF.textContent = "Revisa el correo electrónico: parece que no está completo."; $("#f-email").focus(); return; }
+  if (d.mensaje.length < 5){ estadoF.className = "estado-form error"; estadoF.textContent = "Cuéntame en el mensaje qué te gustaría automatizar."; $("#f-mensaje").focus(); return; }
+  if (!d.privacidad){ estadoF.className = "estado-form error"; estadoF.textContent = "Para enviarlo, acepta la política de privacidad."; $("#f-privacidad").focus(); return; }
+  botonF.disabled = true; botonF.textContent = "Enviando…";
+  try{
+    const r = await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});
+    const j = await r.json();
+    if (!r.ok || !j.ok) throw new Error("envio");
+    form.reset();
+    estadoF.className = "estado-form ok"; estadoF.textContent = "Mensaje enviado. Te respondo lo antes posible, normalmente en el mismo día laborable.";
+  }catch(err){
+    estadoF.className = "estado-form error"; estadoF.textContent = "No se ha podido enviar el mensaje. Prueba otra vez o escríbeme por WhatsApp al +34 695 737 362.";
+  }finally{
+    botonF.disabled = false; botonF.textContent = "Enviar mensaje";
+  }
+});
+document.querySelectorAll("[data-copiar]").forEach(b => b.addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copiar); b.textContent = "Copiado"; }
+  catch(e) { b.textContent = "Selecciona y copia"; }
+  setTimeout(() => b.textContent = "Copiar", 2000);
+}));
+
+/* ===== Aviso de cookies ===== */
+const avisoC = $("#aviso-cookies");
+let cookiesVisto = false; try { cookiesVisto = localStorage.getItem("np-cookies") === "1"; } catch(e) {}
+if (!cookiesVisto) avisoC.hidden = false;
+$("#cookies-ok").addEventListener("click", () => { avisoC.hidden = true; try { localStorage.setItem("np-cookies","1"); } catch(e) {} });
+
 /* ===== Cabecera y menú ===== */
 const cab = $("#cabecera");
 const alDesplazar = () => { cab.classList.toggle("con-fondo", scrollY > 20); };
@@ -624,7 +712,7 @@ document.querySelectorAll("#menu a").forEach(a => a.addEventListener("click", ()
 })();
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/three.min.js"></script>
 <script>
 /* ===== Núcleo 3D ===== */
 (function(){
