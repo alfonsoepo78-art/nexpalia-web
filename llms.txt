@@ -1,0 +1,23 @@
+# NexPal IA
+
+> Agencia de automatización con inteligencia artificial. Diseñamos e implantamos agentes de IA a medida para pymes y empresas: atención al cliente 24/7, gestión de citas, captación de leads y automatización de procesos internos. Con base en la provincia de Alicante, trabajamos con empresas de Alicante y Murcia y, en remoto, de toda España.
+
+## Qué hacemos
+- Agentes de atención al cliente por WhatsApp y web (respuesta 24/7, preguntas frecuentes)
+- Agentes de citas y reservas conectados al calendario, con confirmaciones y recordatorios automáticos
+- Captación, cualificación y seguimiento de leads
+- Automatización de procesos con n8n e integración con CRM, ERP, correo y calendario
+- Asistentes de voz que atienden llamadas (como parte de un proyecto)
+- Aplicaciones y soluciones a medida para empresas
+
+## Cómo trabajamos
+Diagnóstico → Diseño → Desarrollo → Implantación → Evolución. Sesión de diagnóstico gratuita de 45 minutos, sin compromiso. Sin permanencia: la cuota mensual se cancela con 30 días de preaviso.
+
+## Sectores
+Clínicas y salud, asesorías y despachos, inmobiliarias, empresas de reformas y servicios técnicos, e-commerce, hostelería, formación.
+
+## Contacto
+- Web: https://nexpalia.net/
+- Email: info@nexpalia.net
+- Teléfono y WhatsApp: +34 695 737 362
+- Responsable: Alfonso Palomera Arnaldos
