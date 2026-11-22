@@ -228,7 +228,8 @@ html,body{overflow-x:clip}
 .pie{padding:2rem 0 3rem;border-top:1px solid var(--linea);font-size:.92rem;color:#7d82a0}
 .pie nav{display:flex;flex-wrap:wrap;gap:1.2rem}
 .pie a{color:#a9aecb;text-decoration:none}.pie a:hover{color:var(--blanco)}
-.pie .envoltorio{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between}
+.pie .envoltorio{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center}
+.pie .sello{display:inline-flex;line-height:0}.pie .sello img{display:block}
 
 /* fondo con conexiones */
 #conexiones{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
@@ -474,6 +475,7 @@ main,.pie{position:relative;z-index:1}
   <div class="envoltorio">
     <span>© 2026 NexPal IA. Alfonso Palomera Arnaldos.</span>
     <nav aria-label="Información legal"><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Política de privacidad</a><a href="cookies.html">Política de cookies</a></nav>
+    <a class="sello" href="https://quienautomatiza.com/e/alfonso-palomera-arnaldos-nexpal-ia" title="NexPal IA, ficha verificada en Quién Automatiza"><img src="https://quienautomatiza.com/badge/alfonso-palomera-arnaldos-nexpal-ia.svg?tema=oscuro" width="200" height="40" alt="NexPal IA, ficha verificada en Quién Automatiza" loading="lazy"></a>
   </div>
 </footer>
 
