@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuánto te cuesta perder llamadas | NexPal IA</title>
+<link rel="icon" href="favicon.png">
+<link rel="canonical" href="https://nexpalia.net/guia-citas.html">
+<meta property="og:title" content="Guía gratuita: Cuánto te cuesta perder llamadas">
+<meta property="og:description" content="Una cuenta sencilla y cinco preguntas para saber si tu negocio necesita un asistente de citas.">
+<meta property="og:image" content="https://nexpalia.net/logo-nucleo.webp">
+<meta name="description" content="Guía gratuita de dos páginas: una cuenta sencilla y cinco preguntas para saber si tu clínica o negocio necesita un asistente de citas.">
+<style>
+  :root { --navy:#0a0e27; --cyan:#00e0cc; --violet:#b44ef8; --ink:#1b1f33; --grey:#555b70; --light:#f2f5f9; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--ink); background:#fff; line-height:1.55; }
+  header { background:var(--navy); color:#fff; padding:12px 20px; font-weight:700; display:flex; align-items:center; gap:10px; font-size:1.1rem; }
+  header img { width:40px; height:40px; }
+  header a { color:inherit; text-decoration:none; display:flex; align-items:center; gap:10px; }
+  header span { color:var(--cyan); }
+  main { max-width:760px; margin:0 auto; padding:28px 20px 60px; }
+  h1 { font-size:2rem; line-height:1.15; margin:8px 0 10px; color:var(--navy); }
+  .sub { font-size:1.1rem; color:var(--grey); margin:0 0 22px; }
+  ul.inc { padding-left:20px; margin:0 0 26px; }
+  ul.inc li { margin-bottom:6px; }
+  form { background:var(--light); border-left:5px solid var(--cyan); border-radius:6px; padding:22px; }
+  label.f { display:block; font-weight:600; margin-bottom:4px; }
+  input[type=text], input[type=email] { width:100%; padding:11px 12px; font-size:1rem; border:1px solid #c9d0dc; border-radius:6px; margin-bottom:14px; background:#fff; }
+  .consent { display:flex; gap:10px; align-items:flex-start; font-size:.95rem; margin:6px 0 14px; }
+  .consent input { margin-top:4px; width:18px; height:18px; flex:none; }
+  button { background:var(--navy); color:#fff; border:0; border-radius:6px; padding:13px 22px; font-size:1.05rem; font-weight:700; cursor:pointer; width:100%; }
+  button:hover { background:#161c44; }
+  button[disabled] { opacity:.6; cursor:wait; }
+  .legal { font-size:.8rem; color:var(--grey); margin-top:14px; }
+  .msg { padding:14px 16px; border-radius:6px; margin-top:14px; display:none; font-size:.98rem; }
+  .ok { background:#dff7f3; border:1px solid var(--cyan); }
+  .err { background:#fde8e8; border:1px solid #e07a7a; }
+  .hp { position:absolute; left:-9999px; height:0; overflow:hidden; }
+  footer a { color:inherit; }
+  footer { text-align:center; color:var(--grey); font-size:.85rem; padding:20px; }
+</style>
+</head>
+<body>
+<header><a href="/"><img src="logo-nucleo-128.webp" alt="Logo NexPal IA" width="40" height="40"><b style="font-weight:700">NexPal <span>IA</span></b></a></header>
+<main>
+  <h1>Cuánto te cuesta perder llamadas</h1>
+  <p class="sub">Una cuenta de cuatro líneas y cinco preguntas para saber si tu clínica o negocio necesita un asistente de citas, antes de gastar nada.</p>
+
+  <ul class="inc">
+    <li>La cuenta para ponerle cifra a lo que se te escapa cada mes, con tus propios números.</li>
+    <li>Cinco preguntas para saber si te compensa.</li>
+    <li>Qué se puede automatizar y qué es mejor dejar a una persona.</li>
+  </ul>
+
+  <form id="f" novalidate>
+    <label class="f" for="nombre">Nombre</label>
+    <input type="text" id="nombre" name="nombre" autocomplete="given-name" required>
+
+    <label class="f" for="email">Email</label>
+    <input type="email" id="email" name="email" autocomplete="email" required>
+
+    <div class="hp" aria-hidden="true">
+      <label>No rellenes este campo <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <label class="consent">
+      <input type="checkbox" id="consent" name="consent" required>
+      <span>Acepto recibir la guía por email y que NexPal IA me envíe un único email de seguimiento sobre sus servicios. Puedo darme de baja cuando quiera.</span>
+    </label>
+
+    <button type="submit" id="btn">Quiero la guía</button>
+
+    <div class="msg ok" id="ok">Listo. Te acabo de enviar la guía por email. Si no la ves en unos minutos, mira en la carpeta de spam.</div>
+    <div class="msg err" id="err"></div>
+
+    <p class="legal">Responsable: Alfonso Palomera Arnaldos (NexPal IA). Finalidad: enviarte la guía y un email de seguimiento. Legitimación: tu consentimiento. Puedes ejercer tus derechos y retirarlo escribiendo a info@nexpalia.net. Más información en la <a href="privacidad.html" target="_blank">política de privacidad</a>.</p>
+  </form>
+</main>
+<footer>NexPal IA · <a href="/">nexpalia.net</a> · info@nexpalia.net · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Privacidad</a> · <a href="cookies.html">Cookies</a></footer>
+
+<script>
+  var WEBHOOK_URL = "https://nexpalia-ia78-n8n.oilsta.easypanel.host/webhook/guia-citas";
+  var f = document.getElementById("f");
+  var btn = document.getElementById("btn");
+  function show(id, text) {
+    document.getElementById("ok").style.display = "none";
+    document.getElementById("err").style.display = "none";
+    var el = document.getElementById(id);
+    if (text) el.textContent = text;
+    el.style.display = "block";
+  }
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var nombre = f.nombre.value.trim();
+    var email = f.email.value.trim();
+    if (!nombre) { show("err", "Escribe tu nombre."); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { show("err", "Revisa el email."); return; }
+    if (!f.consent.checked) { show("err", "Para enviarte la guía necesito que marques la casilla de consentimiento."); return; }
+    btn.disabled = true;
+    fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nombre: nombre,
+        email: email,
+        consent: true,
+        web: f.web.value,
+        fuente: "linkedin-citas",
+        pagina: location.href
+      })
+    }).then(function (r) {
+      if (!r.ok) throw new Error("http " + r.status);
+      f.reset();
+      show("ok");
+    }).catch(function () {
+      show("err", "No he podido enviarte la guía ahora mismo. Escríbeme a info@nexpalia.net y te la mando a mano.");
+    }).finally(function () { btn.disabled = false; });
+  });
+</script>
+</body>
+</html>
