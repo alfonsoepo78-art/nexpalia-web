@@ -102,6 +102,15 @@ p{margin:0 0 1rem}
 }
 
 /* dos caminos */
+.recursos-rejilla{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2rem}
+.recurso{display:block;text-decoration:none;color:var(--texto);border:1px solid var(--linea);border-radius:18px;padding:1.75rem;background:linear-gradient(160deg,rgba(0,224,204,.07),rgba(180,78,248,.05));transition:border-color .2s,transform .2s}
+.recurso:hover{border-color:var(--cian);transform:translateY(-2px)}
+.recurso-etiqueta{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cian);font-weight:700}
+.recurso:nth-child(2) .recurso-etiqueta{color:var(--violeta)}
+.recurso h3{font-size:1.45rem;margin:.5rem 0 .5rem}
+.recurso p{margin:0 0 1rem}
+.recurso-ir{color:var(--blanco);font-weight:700}
+@media (max-width:760px){.recursos-rejilla{grid-template-columns:1fr}}
 .caminos{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--linea)}
 .camino{padding:clamp(3.5rem,7vw,6rem) clamp(1.25rem,4vw,4rem)}
 .camino:first-child{border-right:1px solid var(--linea)}
@@ -279,6 +288,7 @@ main,.pie{position:relative;z-index:1}
         <li><a href="#pymes">Pymes</a></li>
         <li><a href="#empresas">Empresas</a></li>
         <li><a href="#demo">Probar la demo</a></li>
+        <li><a href="calculadora.html">Calculadora</a></li>
         <li><a href="#quien-soy">Quién soy</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -335,6 +345,27 @@ main,.pie{position:relative;z-index:1}
       <a class="enlace" href="#contacto">Contarme qué necesita tu equipo</a>
     </section>
   </div>
+
+  <section class="seccion" id="recursos" aria-labelledby="t-recursos">
+    <div class="envoltorio">
+      <h2 id="t-recursos">Antes de gastar nada, haz la cuenta.</h2>
+      <p>Dos herramientas gratis para saber si a tu negocio le compensa un asistente de citas.</p>
+      <div class="recursos-rejilla">
+        <a class="recurso" href="calculadora.html">
+          <span class="recurso-etiqueta">Calculadora</span>
+          <h3>¿Cuánto te cuesta perder llamadas?</h3>
+          <p>Tres datos y te dice al momento cuánto se te escapa al mes y al año. No pide email ni guarda nada.</p>
+          <span class="recurso-ir">Hacer la cuenta →</span>
+        </a>
+        <a class="recurso" href="guia-citas.html">
+          <span class="recurso-etiqueta">Guía en PDF</span>
+          <h3>Cuánto te cuesta perder llamadas</h3>
+          <p>La cuenta, cinco preguntas para saber si te hace falta y una hoja para medir una semana. Te llega por email.</p>
+          <span class="recurso-ir">Descargar la guía →</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <section class="seccion" id="demo" aria-labelledby="t-demo">
     <div class="envoltorio demo-rejilla">
