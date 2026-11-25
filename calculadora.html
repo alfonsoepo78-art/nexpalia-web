@@ -46,6 +46,20 @@
   .btn { display:inline-block; padding:12px 18px; border-radius:8px; font-weight:700; text-decoration:none; }
   .btn.p { background:var(--cyan); color:var(--navy); }
   .btn.s { border:1px solid rgba(255,255,255,.35); color:#fff; }
+  .cap { margin-top:26px; border:1px solid var(--line); border-left:5px solid var(--cyan); border-radius:12px; padding:22px; background:var(--light); }
+  .cap h2 { margin:0 0 6px; font-size:1.3rem; color:var(--navy); }
+  .cap p { margin:0 0 14px; color:var(--grey); }
+  .cap-campos { display:flex; gap:10px; flex-wrap:wrap; }
+  .cap-campos input { flex:1; min-width:180px; padding:11px 12px; font-size:1rem; border:1.5px solid #c9d0dc; border-radius:8px; }
+  .consent { display:flex; gap:10px; align-items:flex-start; font-size:.92rem; margin:14px 0; }
+  .consent input { margin-top:4px; width:18px; height:18px; flex:none; }
+  .cap button { background:var(--navy); color:#fff; border:0; border-radius:8px; padding:13px 22px; font-size:1.05rem; font-weight:700; cursor:pointer; width:100%; }
+  .cap button[disabled] { opacity:.6; }
+  .cap .legal { font-size:.78rem; margin:12px 0 0; }
+  .msg { padding:12px 14px; border-radius:8px; margin-top:12px; display:none; }
+  .ok { background:#dff7f3; border:1px solid var(--cyan); }
+  .err { background:#fde8e8; border:1px solid #e07a7a; }
+  .hp { position:absolute; left:-9999px; height:0; overflow:hidden; }
   footer { text-align:center; color:var(--grey); font-size:.85rem; padding:20px; }
   footer a { color:inherit; }
   @media (max-width:560px){ .result { grid-template-columns:1fr; } h1 { font-size:1.6rem; } .in input { width:120px; } .in select { width:170px; } }
@@ -56,7 +70,7 @@
 <main>
   <div class="kicker">Calculadora gratuita</div>
   <h1>¿Cuánto te cuesta perder llamadas?</h1>
-  <p class="sub">Pon tus números aproximados. El resultado sale al momento y no se guarda ni se envía a ningún sitio.</p>
+  <p class="sub">Pon tus números aproximados. El resultado sale al momento. Solo si quieres que te lo enviemos por email te pedimos tus datos.</p>
 
   <div class="calc">
     <div class="field">
@@ -95,14 +109,28 @@
 
   <div class="reading" id="lect"></div>
 
+  <form class="cap" id="cap" novalidate>
+    <h2>¿Te mando tu resultado y la guía completa?</h2>
+    <p>Te llega por email tu cifra y la guía en PDF con cinco preguntas para saber si te hace falta y una hoja para medirlo durante una semana.</p>
+    <div class="cap-campos">
+      <input type="text" id="cn" placeholder="Tu nombre" autocomplete="given-name" aria-label="Nombre">
+      <input type="email" id="ce" placeholder="Tu email" autocomplete="email" aria-label="Email">
+    </div>
+    <div class="hp" aria-hidden="true"><input type="text" id="cw" tabindex="-1" autocomplete="off"></div>
+    <label class="consent"><input type="checkbox" id="cc"><span>Acepto recibir mi resultado y la guía por email y que NexPal IA me envíe un único email de seguimiento sobre sus servicios. Puedo darme de baja cuando quiera.</span></label>
+    <button type="submit" id="cb">Enviármelo</button>
+    <div class="msg ok" id="cok">Listo. Te acabo de enviar tu resultado y la guía. Si no lo ves en unos minutos, mira en spam.</div>
+    <div class="msg err" id="cerr"></div>
+    <p class="legal">Responsable: Alfonso Palomera Arnaldos (NexPal IA). Finalidad: enviarte tu resultado, la guía y un email de seguimiento. Legitimación: tu consentimiento. Puedes retirarlo escribiendo a info@nexpalia.net. Más información en la <a href="privacidad.html" target="_blank">política de privacidad</a>.</p>
+  </form>
+
   <div class="cta">
     <div class="kicker" style="color:var(--cyan)">Siguiente paso · Sin compromiso</div>
     <h2>¿Lo revisamos juntos con tus números?</h2>
     <p>15 minutos por teléfono, gratis: me cuentas cómo gestionas hoy las citas y te digo con sinceridad si te compensa poner un asistente o no.</p>
     <div class="btns">
       <a class="btn p" href="/#contacto">Pedir la revisión gratuita</a>
-      <a class="btn s" href="guia-citas.html">Descargar la guía completa</a>
-    </div>
+          </div>
   </div>
 </main>
 <footer>NexPal IA · <a href="/">nexpalia.net</a> · info@nexpalia.net · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Privacidad</a> · <a href="cookies.html">Cookies</a></footer>
@@ -122,7 +150,25 @@
     else if (mes < 400) t = "No es un drama, pero se va sumando: en un año son " + fmt.format(mes * 12) + " €. Merece la pena mirar si hay una forma barata de cubrir esas horas.";
     else t = "Es una cantidad que se nota. Probablemente te compense cubrir las horas en las que nadie puede contestar. Lo vemos con tus datos si quieres.";
     document.getElementById("lect").textContent = t;
+    ultimo = { mes: mes, anio: mes * 12, texto: document.getElementById("det").textContent };
   }
+  var WEBHOOK_URL = "https://nexpalia-ia78-n8n.oilsta.easypanel.host/webhook/guia-citas";
+  var ultimo = { mes: 0, anio: 0, texto: "" };
+  function show(id, txt) { ["cok","cerr"].forEach(function(x){ document.getElementById(x).style.display="none"; }); var el=document.getElementById(id); if (txt) el.textContent=txt; el.style.display="block"; }
+  document.getElementById("cap").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var n = document.getElementById("cn").value.trim(), em = document.getElementById("ce").value.trim();
+    if (!n) { show("cerr", "Escribe tu nombre."); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { show("cerr", "Revisa el email."); return; }
+    if (!document.getElementById("cc").checked) { show("cerr", "Para enviártelo necesito que marques la casilla de consentimiento."); return; }
+    var btn = document.getElementById("cb"); btn.disabled = true;
+    fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre: n, email: em, consent: true, web: document.getElementById("cw").value, fuente: "calculadora", pagina: location.href,
+        resultado_mes: Math.round(ultimo.mes), resultado_detalle: ultimo.texto }) })
+    .then(function (r) { if (!r.ok) throw new Error(); show("cok"); document.getElementById("cap").querySelectorAll("input").forEach(function(i){ if(i.type==="checkbox") i.checked=false; else i.value=""; }); })
+    .catch(function () { show("cerr", "No he podido enviártelo ahora mismo. Escríbeme a info@nexpalia.net y te lo mando a mano."); })
+    .finally(function () { btn.disabled = false; });
+  });
   ["a","b","c","d"].forEach(function (id) { var el = document.getElementById(id); el.addEventListener("input", calc); el.addEventListener("change", calc); });
   calc();
 </script>
