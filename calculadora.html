@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora: cuánto te cuesta perder llamadas | NexPal IA</title>
+<meta name="description" content="Calcula en 30 segundos cuánto dinero se le escapa a tu clínica o negocio cada mes por llamadas y mensajes sin contestar.">
+<link rel="icon" href="favicon.png">
+<link rel="canonical" href="https://nexpalia.net/calculadora.html">
+<meta property="og:title" content="Calculadora: cuánto te cuesta perder llamadas">
+<meta property="og:description" content="Tres datos y sabrás cuánto se te escapa al mes.">
+<meta property="og:image" content="https://nexpalia.net/logo-nucleo.webp">
+<style>
+  :root { --navy:#0a0e27; --navy2:#141a3d; --cyan:#00e0cc; --cyanD:#00a897; --violet:#b44ef8; --ink:#1b1f33; --grey:#5a6078; --light:#f3f5fa; --line:#e3e7f0; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#fff; line-height:1.55; }
+  header { background:var(--navy); color:#fff; padding:12px 20px; }
+  header a { color:#fff; text-decoration:none; display:flex; align-items:center; gap:10px; font-weight:700; font-size:1.1rem; }
+  header img { width:40px; height:40px; }
+  header span { color:var(--cyan); }
+  main { max-width:760px; margin:0 auto; padding:28px 20px 60px; }
+  .kicker { font-size:.8rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--cyanD); }
+  h1 { font-size:2rem; line-height:1.15; margin:6px 0 10px; color:var(--navy); }
+  .sub { color:var(--grey); font-size:1.05rem; margin:0 0 24px; }
+  .calc { border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .field { display:flex; gap:16px; align-items:center; padding:18px 20px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .l { width:42px; height:42px; border-radius:50%; background:var(--navy); color:var(--cyan); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.15rem; flex:none; }
+  .q { flex:1; min-width:200px; }
+  .q label { font-weight:700; color:var(--navy); display:block; }
+  .q small { color:var(--grey); }
+  .in { display:flex; align-items:center; gap:8px; }
+  .in input, .in select { width:140px; padding:11px 12px; font-size:1.05rem; border:1.5px solid #c9d0dc; border-radius:8px; background:#fff; font-weight:600; color:var(--navy); }
+  .in input:focus, .in select:focus { outline:none; border-color:var(--cyanD); box-shadow:0 0 0 3px rgba(0,224,204,.2); }
+  .in em { font-style:normal; color:var(--grey); font-weight:600; }
+  .result { background:linear-gradient(90deg,var(--navy),var(--navy2)); color:#fff; padding:22px 20px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .result div small { display:block; color:#b8bfdc; font-size:.85rem; }
+  .result .big { font-size:2.2rem; font-weight:800; color:var(--cyan); line-height:1.1; }
+  .result .year { font-size:1.6rem; font-weight:800; color:#cfa3ff; line-height:1.2; }
+  .detail { grid-column:1 / -1; font-size:.9rem; color:#c9cee6; border-top:1px solid rgba(255,255,255,.12); padding-top:12px; }
+  .note { font-size:.85rem; color:var(--grey); margin-top:12px; }
+  .reading { margin-top:22px; padding:16px 18px; border-radius:10px; background:var(--light); border-left:4px solid var(--violet); }
+  .cta { margin-top:26px; background:var(--navy); color:#fff; border-radius:14px; padding:24px; }
+  .cta h2 { margin:4px 0 8px; font-size:1.35rem; }
+  .cta p { color:#c9cee6; margin:0 0 16px; }
+  .btns { display:flex; gap:10px; flex-wrap:wrap; }
+  .btn { display:inline-block; padding:12px 18px; border-radius:8px; font-weight:700; text-decoration:none; }
+  .btn.p { background:var(--cyan); color:var(--navy); }
+  .btn.s { border:1px solid rgba(255,255,255,.35); color:#fff; }
+  footer { text-align:center; color:var(--grey); font-size:.85rem; padding:20px; }
+  footer a { color:inherit; }
+  @media (max-width:560px){ .result { grid-template-columns:1fr; } h1 { font-size:1.6rem; } .in input { width:120px; } .in select { width:170px; } }
+</style>
+</head>
+<body>
+<header><a href="/"><img src="logo-nucleo-128.webp" alt="Logo NexPal IA" width="40" height="40"><b>NexPal <span>IA</span></b></a></header>
+<main>
+  <div class="kicker">Calculadora gratuita</div>
+  <h1>¿Cuánto te cuesta perder llamadas?</h1>
+  <p class="sub">Pon tus números aproximados. El resultado sale al momento y no se guarda ni se envía a ningún sitio.</p>
+
+  <div class="calc">
+    <div class="field">
+      <div class="l">A</div>
+      <div class="q"><label for="a">Llamadas o mensajes sin contestar a la semana</label><small>Recepción ocupada, mediodía, tardes, fines de semana</small></div>
+      <div class="in"><input id="a" type="number" inputmode="numeric" min="0" step="1" value="3"></div>
+    </div>
+    <div class="field">
+      <div class="l">B</div>
+      <div class="q"><label for="b">¿Cuántas de esas personas no vuelven?</label><small>Si no lo sabes, elige una opción prudente</small></div>
+      <div class="in"><select id="b">
+        <option value="0.1">1 de cada 10</option>
+        <option value="0.25">1 de cada 4</option>
+        <option value="0.3333" selected>1 de cada 3</option>
+        <option value="0.5">La mitad</option>
+        <option value="0.75">3 de cada 4</option>
+      </select></div>
+    </div>
+    <div class="field">
+      <div class="l">C</div>
+      <div class="q"><label for="c">Valor medio de una cita o primera sesión</label><small>Lo que factura de media una visita</small></div>
+      <div class="in"><input id="c" type="number" inputmode="decimal" min="0" step="1" value="40"><em>€</em></div>
+    </div>
+    <div class="field">
+      <div class="l">+</div>
+      <div class="q"><label for="d">Visitas que suele hacer un paciente o cliente nuevo</label><small>Opcional. Déjalo en 1 si no lo tienes claro</small></div>
+      <div class="in"><input id="d" type="number" inputmode="numeric" min="1" step="1" value="1"></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div><small>Se te escapa al mes, aproximadamente</small><div class="big" id="mes">160 €</div></div>
+      <div><small>En un año</small><div class="year" id="anio">1.920 €</div></div>
+      <div class="detail" id="det"></div>
+    </div>
+  </div>
+  <p class="note">Es una estimación con tus propios datos, no una promesa de resultado. Cuenta 4 semanas por mes y 12 meses por año.</p>
+
+  <div class="reading" id="lect"></div>
+
+  <div class="cta">
+    <div class="kicker" style="color:var(--cyan)">Siguiente paso · Sin compromiso</div>
+    <h2>¿Lo revisamos juntos con tus números?</h2>
+    <p>15 minutos por teléfono, gratis: me cuentas cómo gestionas hoy las citas y te digo con sinceridad si te compensa poner un asistente o no.</p>
+    <div class="btns">
+      <a class="btn p" href="/#contacto">Pedir la revisión gratuita</a>
+      <a class="btn s" href="guia-citas.html">Descargar la guía completa</a>
+    </div>
+  </div>
+</main>
+<footer>NexPal IA · <a href="/">nexpalia.net</a> · info@nexpalia.net · <a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Privacidad</a> · <a href="cookies.html">Cookies</a></footer>
+<script>
+  var fmt = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 0 });
+  function num(id, min) { var v = parseFloat(document.getElementById(id).value); return isFinite(v) && v >= min ? v : min; }
+  function calc() {
+    var a = num("a", 0), b = parseFloat(document.getElementById("b").value), c = num("c", 0), d = num("d", 1);
+    var perdidas = a * b * 4;
+    var mes = perdidas * c * d;
+    document.getElementById("mes").textContent = fmt.format(mes) + " €";
+    document.getElementById("anio").textContent = fmt.format(mes * 12) + " €";
+    document.getElementById("det").textContent = "Unas " + fmt.format(perdidas) + " personas al mes que no vuelven × " + fmt.format(c) + " € por visita" + (d > 1 ? " × " + fmt.format(d) + " visitas" : "") + ".";
+    var t;
+    if (mes === 0) t = "Con estos datos no se te escapa nada. Si no lo tienes claro, apunta una semana las llamadas que no puedes coger.";
+    else if (mes < 100) t = "La cifra es pequeña: probablemente no necesitas nada todavía, y está bien saberlo antes de gastar.";
+    else if (mes < 400) t = "No es un drama, pero se va sumando: en un año son " + fmt.format(mes * 12) + " €. Merece la pena mirar si hay una forma barata de cubrir esas horas.";
+    else t = "Es una cantidad que se nota. Probablemente te compense cubrir las horas en las que nadie puede contestar. Lo vemos con tus datos si quieres.";
+    document.getElementById("lect").textContent = t;
+  }
+  ["a","b","c","d"].forEach(function (id) { var el = document.getElementById(id); el.addEventListener("input", calc); el.addEventListener("change", calc); });
+  calc();
+</script>
+</body>
+</html>
